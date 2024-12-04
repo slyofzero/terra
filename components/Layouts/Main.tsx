@@ -5,6 +5,7 @@ import { ConnectButton } from "../blockchain";
 import NextLink from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useRouter } from "next/router";
+import { SiEthereum, SiSolana } from "react-icons/si";
 
 interface ButtonData {
   text: string;
@@ -78,31 +79,45 @@ export function MainLayout({ children, className }: Props) {
           ))}
         </div>
 
-        <div className="flex w-full h-fit border-b-[1px] border-gray-500">
-          <div className="flex gap-4 px-4">
-            {navButtons.map(({ link, text }, key) => (
-              <NextLink
-                key={key}
-                className={classNames(
-                  "bg-black text-white p-2 w-fit text-center lg:w-32",
-                  router.pathname === link
-                    ? "border-b-2 border-white font-bold"
-                    : ""
-                )}
-                href={link}
-              >
-                {text}
-              </NextLink>
-            ))}
+        <div className="flex flex-col gap-4 w-full">
+          <div className="flex justify-between px-4 w-full h-fit border-b-[1px] border-gray-500">
+            <div className="flex gap-4">
+              {navButtons.map(({ link, text }, key) => (
+                <NextLink
+                  key={key}
+                  className={classNames(
+                    "bg-black text-white p-2 w-fit text-center lg:w-32",
+                    router.pathname === link
+                      ? "border-b-2 border-white font-bold"
+                      : ""
+                  )}
+                  href={link}
+                >
+                  {text}
+                </NextLink>
+              ))}
+            </div>
+
+            <div className="hidden md:flex gap-8 items-center">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="bg-white rounded-full p-1">
+                  <SiEthereum className="text-xl text-black" />
+                </span>{" "}
+                <span className="text-green-400">3505$</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm">
+                <span className="bg-white rounded-full p-1">
+                  <SiSolana className="text-xl text-black" />
+                </span>{" "}
+                <span className="text-red-400">241$</span>
+              </div>
+            </div>
           </div>
+
+          <div className="px-4 pb-4 flex-grow [&>*]:h-full">{children}</div>
         </div>
       </div>
-
-      {/* <nav className="flex lg:hidden justify-between items-center gap-0">
-        {navButtons}
-      </nav> */}
-
-      {children}
     </main>
   );
 }
